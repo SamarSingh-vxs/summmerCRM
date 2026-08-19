@@ -1,6 +1,5 @@
 import {GoogleGenAI} from "@google/genai";
 import { ApiError } from "../utils/ApiError.js";
-
 let client = null;
 
 const getClient = () => {
@@ -14,11 +13,11 @@ const getClient = () => {
     return client
 };
 
-const MODEL = () =>  process.env.Gemini_MODEL || "gemini-2.5-flash";
+const MODEL = () => process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 export const isAIconfigured = () => Boolean(process.env.GEMINI_API_KEY)
 
-const generateJSON = async(prompt, schema) => {
+const generateJson = async(prompt, schema) => {
     const ai = getClient();
     try{
         const response = await ai.models.generateContent({
@@ -167,7 +166,7 @@ export const generateSalesInsights = async (pipelineStats) => {
         },
         required : ["headline","insights","recommendations","healthScore"],
     }
-    return generateJSON(prompt,schema)
+    return generateJson(prompt,schema)
 
 }
 
